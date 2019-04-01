@@ -60,7 +60,7 @@ void pio_write(unsigned char data);
 unsigned char relay_fixup(unsigned char c);
 void operate_relays(unsigned char c);
 void InitUART();
-int putchar(int);
+void putchar(char);
 
 /* DTMF Digit to OKI OR Pulse Counting Relay Mapping */
 const unsigned char pc_relay_table[16] = { 
@@ -98,8 +98,7 @@ int main()
     IT0 = 0;            // Both falling and rising edges.
     EX0 = 1;            // Enable external interrupt 0
 
-    /* init the software uart */
-    InitUART();
+    InitUART();         // Initialize UART
 
     puts("OKI AC125A Parallel DTMF Decoder\n\r(c) 2019 Howard M. Harte\n\r");
 
@@ -117,9 +116,11 @@ int main()
             if (pc_relays > 0) {
                 /* Set PA-PE and C relays */
                 operate_relays(pc_relays | RELAY_C);
-                _delay_ms(500);
-
-                _delay_ms(500);
+                _delay_ms(400);
+                dtmf_data = 0;
+                _delay_ms(400);
+                operate_relays(pc_relays);
+                _delay_ms(250);
                 operate_relays(0);
                 _delay_ms(500);
             }
@@ -142,13 +143,11 @@ void int0_isr() __interrupt 0 __using 2
     }
 }
 
-int putchar(int c)
+void putchar(char c)
 {
     while (busy);
     busy = 1;
     SBUF = c;
-
-    return 0;
 }
 
 void InitUART()
