@@ -1,8 +1,24 @@
-OKI Parallel-Output DTMF Converter
+OKI AC125A Parallel-Output DTMF Converter
 
-Using an [AD22A08](https://www.amazon.com/Hilitand-AD22A08-Signal-Decoder-Controller/dp/B07CSZB976) PCB
+Using an off-the-shelf [AD22A08](https://www.amazon.com/Hilitand-AD22A08-Signal-Decoder-Controller/dp/B07CSZB976) DTMF Relay Board
 
 ![image alt text](image_0.jpg)
+
+# Introduction
+
+The OKI Electric AC125A is an electromechanical Private Branch eXchange (PBX) employing crossbar switching technology.  The AC125A is optimized for the hospitality industry, supporting sixty stations in total; however the traffic handling capacity is limited to a maximum of ten simultaneous calls: consisting of up to two intra-office intercom-type calls and up to 8 central office calls at the same time.
+
+The basic AC125A package supports pulse dialing only; however, OKI provided a plug-in option to add Touch-Tone (DTMF) receivers for both Originating Registers (ORs.)  As the original DTMF converters are not available currently, I set out to make a suitable replacement using modern components.  The rest of this guide provides the details required to build the converters and install them in an OKI AC125A PBX.  This design can likely be adapted to work with other electromechanical telephone switching equipment.  
+
+## Related videos:
+
+Brief [demonstration of the OKI Electric AC125A Crossbar Switch](https://www.youtube.com/watch?v=zIg5bV8V8tk).
+
+The [OKI Parallel-Output DTMF Converter in action](https://www.youtube.com/watch?v=k1Qx7L2s7Ic).
+
+More [detail of the OKI AC125A Crossbar PBX](https://www.youtube.com/watch?v=hjRTW2XuNjI).  Lots of mistakes in this video, but there are some good close-ups of the switch.
+
+# Reverse Engineering the AD22A08
 
 Documentation and resources courtesy of K7TGU:
 
@@ -781,23 +797,4 @@ The A and B leads go to a phone line audio interface such as the [Radio Shack Ph
     <td>C</td>
   </tr>
 </table>
-
-
-# Installing STCGAL Programmer on MacOS
-
-brew install python
-
-pip3 install serial
-
-pip3 install setuptools
-
-./setup.py build
-
-sudo ./setup.py install
-
-pip3 install pyserial
-
-May need pip3 uninstall serial
-
-stcgal
 
